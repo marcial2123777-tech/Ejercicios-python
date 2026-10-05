@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Math Lab</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <main class="contenedor">
+
+        <!-- ENCABEZADO -->
+
+        <header class="header">
+
+            <div class="icono">
+                ×
+            </div>
+
+            <div>
+
+                <span class="mini-titulo">
+                    MATH LAB
+                </span>
+
+                <h1>
+                    Tabla de<br>
+                    multiplicar
+                </h1>
+
+            </div>
+
+        </header>
+
+
+        <!-- FORMULARIO -->
+
+        <section class="panel">
+
+            <div class="texto-panel">
+
+                <span>
+                    GENERADOR
+                </span>
+
+                <h2>
+                    ¿Qué número<br>
+                    quieres calcular?
+                </h2>
+
+            </div>
+
+
+            <form action="/multiplicar"
+                  method="POST"
+                  class="formulario">
+
+                <div class="campo">
+
+                    <label for="numero">
+                        Número
+                    </label>
+
+                    <input
+                        type="text"
+                        id="numero"
+                        name="numero"
+                        placeholder="Ej. 7"
+                        inputmode="numeric"
+                        maxlength="15"
+                        pattern="[0-9]{1,15}"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit">
+
+                    <span>
+                        Generar
+                    </span>
+
+                    <strong>
+                        →
+                    </strong>
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- RESULTADO -->
+
+        {% if tabla %}
+
+        <section class="resultado">
+
+            <div class="resultado-header">
+
+                <div>
+
+                    <span>
+                        RESULTADO
+                    </span>
+
+                    <h2>
+                        Tabla del
+                        <strong>{{ numero }}</strong>
+                    </h2>
+
+                </div>
+
+                <div class="numero-grande">
+                    {{ numero }}
+                </div>
+
+            </div>
+
+
+            <div class="multiplicaciones">
+
+                {% for fila in tabla %}
+
+                <div class="fila">
+
+                    <div class="operador">
+                        {{ fila.multiplicador }}
+                    </div>
+
+                    <div class="signo">
+                        ×
+                    </div>
+
+                    <div class="numero-tabla">
+                        {{ numero }}
+                    </div>
+
+                    <div class="igual">
+                        =
+                    </div>
+
+                    <div class="resultado-numero">
+                        {{ fila.resultado }}
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        {% else %}
+
+        <section class="vacio">
+
+            <div class="simbolo">
+                ×
+            </div>
+
+            <h2>
+                Tu resultado<br>
+                aparecerá aquí
+            </h2>
+
+            <p>
+                Introduce un número para generar
+                su tabla del 1 al 10.
+            </p>
+
+        </section>
+
+        {% endif %}
+
+
+        <footer>
+            MATH LAB · TABLAS DE MULTIPLICAR
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

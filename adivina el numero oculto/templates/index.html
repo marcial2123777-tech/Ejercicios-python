@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adivina el Número</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <main class="game-container">
+
+        <div class="game-card">
+
+            <div class="icon">
+                ?
+            </div>
+
+            <p class="mini-title">JUEGO DE ADIVINANZA</p>
+
+            <h1>Adivina el<br><span>número oculto</span></h1>
+
+            <p class="description">
+                Estoy pensando en un número entre
+                <strong>1 y 100</strong>.
+                ¿Puedes descubrirlo?
+            </p>
+
+
+            <div class="secret-number">
+                <span>?</span>
+            </div>
+
+
+            <form action="/adivinar" method="POST">
+
+                <label for="numero">
+                    Escribe tu número
+                </label>
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        id="numero"
+                        name="numero"
+                        placeholder="Ej. 50"
+                        inputmode="numeric"
+                        maxlength="3"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <button type="submit">
+                        ADIVINAR
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <span class="stat-number">
+                        {{ intentos }}
+                    </span>
+
+                    <span class="stat-label">
+                        INTENTOS
+                    </span>
+
+                </div>
+
+                <div class="line"></div>
+
+                <div class="stat">
+
+                    <span class="stat-number">
+                        1-100
+                    </span>
+
+                    <span class="stat-label">
+                        RANGO
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {% if mensaje %}
+
+            <div class="message
+                {% if ganado %}
+                    success
+                {% elif '⚠️' in mensaje %}
+                    warning
+                {% else %}
+                    hint
+                {% endif %}
+            ">
+
+                {{ mensaje }}
+
+            </div>
+
+            {% endif %}
+
+
+            {% if ganado %}
+
+            <a href="/nuevo" class="new-game">
+                ↻ JUGAR DE NUEVO
+            </a>
+
+            {% endif %}
+
+
+        </div>
+
+        <p class="footer">
+            🎯 Cada intento te acerca a la respuesta
+        </p>
+
+    </main>
+
+</body>
+
+</html>
